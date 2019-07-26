@@ -80,6 +80,8 @@ bashblog uses the `$EDITOR` environment value to open the text editor.
 Detailed features
 -----------------
 
+- HTML5 compatable
+- Support for github username with corner-link
 - A simple but nice and readable design, with nothing but the blog posts
 - **NEW on 2.0** Markdown support via a third-party library.  
   The easiest method is to download
