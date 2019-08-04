@@ -996,7 +996,7 @@ create_includes() {
         protected_mail=${protected_mail//./&#46;}
         copyright_year=$(date +'%Y')
         echo "<div id=\"footer\">Copyright &copy; $copyright_year $global_author<br>$global_license<br><a href=\"$global_author_url\">$global_author</a> &mdash; <a href=\"mailto:$protected_mail\">$protected_mail</a><br>"
-        echo 'Generated with <a href="https://github.com/dvwallin/bashblog-ng">bashblog-ng</a> - based on <a href="https://github.com/cfenollosa/bashblog">simple greatness</a></div>'
+        echo 'Generated with <a href="https://github.com/dvwallin/bashblog-ng">bashblog-ng</a> - (B)e (A)wesome & (S)imple (H)omie</div>'
         } >> ".footer.html"
     fi
 }

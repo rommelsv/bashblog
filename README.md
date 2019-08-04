@@ -9,7 +9,7 @@ Created because someone wanted a very, very simple way to post entries to a blog
 
 You can see a sample here: (https://yagni.rocks). That page was 100% generated using bashblog-ng, no additional tweaking.
 
-Check out [other bashblog-ng users](https://www.google.com/search?q=%22Generated+with+bashblog-ng+-+based+on+simple+greatness%22)
+Check out [other bashblog-ng users](https://www.google.com/search?q=%22Generated+with+bashblog-ng+-+%28B%29e+%28A%29wesome+%26+%28S%29imple+%28H%29omie%22)
 
 
 Usage
