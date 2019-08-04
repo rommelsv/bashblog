@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# BashBlog, a simple blog system written in a single bash script
+# BashBlog-ng, Bash script to create and manage blogs
+# (C) David Satime Wallin <david@dwall.in>, 2019 and contributors
+# https://github.com/dvwallin/bashblog-ng/contributors
 # (C) Carlos Fenollosa <carlos.fenollosa@gmail.com>, 2011-2016 and contributors
 # https://github.com/carlesfe/bashblog/contributors
 # Check out README.md for more details
