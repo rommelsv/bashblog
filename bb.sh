@@ -968,7 +968,7 @@ create_includes() {
                 done
                 echo "<li><a href='${array[1]}'>${array[0]}</a></li>"; 
             done
-            echo "</ul></div></nav>"
+            echo "</ul></nav>"
         } > .menu.html
     else
         {
