@@ -77,6 +77,12 @@ global_variables() {
     # Add them as a bash array, e.g. non_blogpost_files=("news.html" "test.html")
     non_blogpost_files=()
 
+    # Declare your menu here. Key is the printed name, value is the file to point to
+    # as for example: global_main_menu=( "Home:index.html" "About:about.html" )
+
+    global_main_menu=( "Home:index.html" "About:about.html" )
+    declare -a global_main_menu
+
     # feed file (rss in this case)
     blog_feed="feed.rss"
     number_of_feed_articles="10"
@@ -445,7 +451,9 @@ create_html_page() {
         # blog title
         echo '<div id="title">'
         cat .title.html
-        echo '</div></div></div>' # title, header, headerholder
+        echo '</div>'
+        cat .menu.html
+        echo '</div></div>' # title, header, headerholder
         echo '<div id="divbody"><div class="content">'
 
         file_url=${filename#./}
@@ -945,6 +953,28 @@ create_includes() {
         echo "<div id=\"description\">$global_description</div>"
     } > ".title.html"
 
+    # generating the menu
+    if [[ ${#global_main_menu[@]} > 0 ]]; then
+        {
+            echo "<nav id='global_main_menu' class='navigation-menu'><label class='hamburger-icon' aria-label='Open navigation menu' for='menu-toggle'>&#9776;</label><input type='checkbox' id='menu-toggle'/><ul class='main-navigation'>"
+            for i in "${global_main_menu[@]}"; do
+                delimiter=:
+                s=$i$delimiter
+                array=()
+                while [[ $s ]]; do
+                    array+=( "${s%%"$delimiter"*}" )
+                    s=${s#*"$delimiter"}
+                done
+                echo "<li><a href='${array[1]}'>${array[0]}</a></li>"; 
+            done
+            echo "</ul></div></nav>"
+        } > .menu.html
+    else
+        {
+            echo ""
+        } > .menu.html
+    fi
+
     if [[ -f $header_file ]]; then cp "$header_file" .header.html
     else {
         echo '<!DOCTYPE html>'
@@ -973,7 +1003,7 @@ create_includes() {
 
 # Delete the temporarily generated include files
 delete_includes() {
-    rm ".title.html" ".footer.html" ".header.html"
+    rm ".title.html" ".footer.html" ".header.html" ".menu.html"
 }
 
 # Create the css file from scratch
@@ -989,13 +1019,22 @@ create_css() {
         ul,ol{margin-left:24px;margin-right:24px;}
         #all_posts{margin-top:24px;text-align:center;}
         .subtitle{font-size:small;margin:12px 0px;}
-        .content p{margin-left:24px;margin-right:24px;}
+        .content p{margin-left:14px;margin-right:14px;}
         h1{margin-bottom:12px !important;}
         #description{font-size:large;margin-bottom:12px;}
         h3{margin-top:42px;margin-bottom:8px;}
         h4{margin-left:24px;margin-right:24px;}
         img{max-width:100%;}
-        #twitter{line-height:20px;vertical-align:top;text-align:right;font-style:italic;color:#333;margin-top:24px;font-size:14px;}' > blog.css
+        #twitter{line-height:20px;vertical-align:top;text-align:right;font-style:italic;color:#333;margin-top:24px;font-size:14px;}
+        .navigation-menu{overflow:hidden;position:relative;border-bottom:1px solid #e7e7e7}.main-navigation{display:none;padding-left:0}
+        .main-navigation li{list-style-type:none;margin:15px auto;text-align:center}
+        .main-navigation a{padding:5px 7px;color:#947aff;margin:0 2px 0 2px;text-decoration:none;display:inline-block}
+        .main-navigation a:hover{color:#000;transition:.3s ease}.hamburger-icon{margin:5px 30px 5px 5px;cursor:pointer;font-size:25px;color:#947aff}
+        #menu-toggle{display:none}#menu-toggle:checked+.main-navigation{display:block}
+        @media screen and (min-width:505px){.navigation-menu{height:70px;display:flex;align-items:center;border-bottom:1px solid #e7e7e7}
+        .main-navigation{display:flex;flex-direction:row;justify-content:flex-end;margin-left:30px}.main-navigation a{padding:15px 17px}
+        .hamburger-icon{display:none}#menu-toggle:checked+.main-navigation{display:flex}
+        .content p{margin-left:24px;margin-right:24px;}}' > blog.css
     fi
 
     # If there is a style.css from the parent page (i.e. some landing page)
@@ -1005,10 +1044,9 @@ create_css() {
         ln -s "../style.css" "main.css" 
     elif [[ ! -f main.css ]]; then
         echo 'body{font-family:Georgia,"Times New Roman",Times,serif;margin:0;padding:0;background-color:#F3F3F3;}
-        #divbodyholder{padding:5px;background-color:#DDD;width:100%;max-width:874px;margin:24px auto;}
-        #divbody{border:solid 1px #ccc;background-color:#fff;padding:0px 48px 24px 48px;top:0;}
-        .headerholder{background-color:#f9f9f9;border-top:solid 1px #ccc;border-left:solid 1px #ccc;border-right:solid 1px #ccc;}
-        .header{width:100%;max-width:800px;margin:0px auto;padding-top:24px;padding-bottom:8px;}
+        #divbodyholder{padding:24px;width:100%;max-width:874px;}
+        #divbody{border:solid 1px #ccc;background-color:#fff;padding:0px 18px 24px 18px;top:0;}
+        .header{width:100%;max-width:860px;margin:0px 0px 0px 24px;padding-top:24px;padding-bottom:8px;}
         .content{margin-bottom:5%;}
         .nomargin{margin:0;}
         .description{margin-top:10px;border-top:solid 1px #666;padding:10px 0;}
@@ -1019,7 +1057,10 @@ create_css() {
         a:visited{text-decoration:none;color:#336699 !important;}
         blockquote{background-color:#f9f9f9;border-left:solid 4px #e9e9e9;margin-left:12px;padding:12px 12px 12px 24px;}
         blockquote img{margin:12px 0px;}
-        blockquote iframe{margin:12px 0px;}' > main.css
+        blockquote iframe{margin:12px 0px;}
+        @media screen and (min-width:505px){
+            #divbody{padding:0px 48px 24px 48px;}
+        }' > main.css
     fi
 }
 
