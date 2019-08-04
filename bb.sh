@@ -78,9 +78,10 @@ global_variables() {
     non_blogpost_files=()
 
     # Declare your menu here. Key is the printed name, value is the file to point to
-    # as for example: global_main_menu=( "Home:index.html" "About:about.html" )
+    # as for example:
+    # global_main_menu=( "Home:index.html" "About:about.html" )
 
-    global_main_menu=( "Home:index.html" "About:about.html" )
+    global_main_menu=()
     declare -a global_main_menu
 
     # feed file (rss in this case)
