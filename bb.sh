@@ -151,6 +151,10 @@ global_variables() {
     # "Tweet" (used as twitter text button for posting to twitter)
     template_twitter_button="Tweet"
     template_twitter_comment="&lt;Type your comment here but please leave the URL so that other people can follow the comments&gt;"
+
+    # Core Theming
+    core_theme_body_max_width="874"
+    core_theme_header_max_width="860"
     
     # The locale to use for the dates displayed on screen
     date_format="%B %d, %Y"
@@ -1061,9 +1065,9 @@ create_css() {
         ln -s "../style.css" "main.css" 
     elif [[ ! -f main.css ]]; then
         echo 'body{font-family:Georgia,"Times New Roman",Times,serif;margin:0;padding:0;background-color:#F3F3F3;}
-        #divbodyholder{padding:24px;width:100%;max-width:874px;}
+        #divbodyholder{padding:24px;width:100%;max-width:'"${core_theme_body_max_width}"'px;}
         #divbody{border:solid 1px #ccc;background-color:#fff;padding:0px 18px 24px 18px;top:0;}
-        .header{width:100%;max-width:860px;margin:0px 0px 0px 24px;padding-top:24px;padding-bottom:8px;}
+        .header{width:100%;max-width:'"${core_theme_header_max_width}"'px;margin:0px 0px 0px 24px;padding-top:24px;padding-bottom:8px;}
         .content{margin-bottom:5%;}
         .nomargin{margin:0;}
         .description{margin-top:10px;border-top:solid 1px #666;padding:10px 0;}
