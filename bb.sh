@@ -170,8 +170,10 @@ global_variables() {
     preview_url=""
 
     # Markdown location. Trying to autodetect by default.
-    # The invocation must support the signature 'markdown_bin in.md > out.html'
-    [[ -f Markdown.pl ]] && markdown_bin=./Markdown.pl || markdown_bin=$(which Markdown.pl 2>/dev/null || which markdown 2>/dev/null)
+    # The invocation must support the signature 'converter_bin convert_args in.md > out.html'
+    converter_bin="Markdown.pl"
+    converter_args=""
+    [[ -f ${converter_bin} ]] && converter_bin=./${converter_bin} || converter_bin=$(which ${converter_bin} 2>/dev/null || which markdown 2>/dev/null)
 }
 
 # Check for the validity of some variables
@@ -188,10 +190,10 @@ global_variables_check() {
 
 # Test if the markdown script is working correctly
 test_markdown() {
-    [[ -n $markdown_bin ]] &&
+    [[ -n $converter_bin ]] &&
         (
-        [[ $("$markdown_bin" <<< $'line 1\n\nline 2') == $'<p>line 1</p>\n\n<p>line 2</p>' ]] ||
-        [[ $("$markdown_bin" <<< $'line 1\n\nline 2') == $'<p>line 1</p>\n<p>line 2</p>' ]]
+        [[ $("$converter_bin" <<< $'line 1\n\nline 2') == $'<p>line 1</p>\n\n<p>line 2</p>' ]] ||
+        [[ $("$converter_bin" <<< $'line 1\n\nline 2') == $'<p>line 1</p>\n<p>line 2</p>' ]]
         )
 }
 
@@ -200,7 +202,7 @@ test_markdown() {
 markdown() {
     out=${1%.md}.html
     while [[ -f $out ]]; do out=${out%.html}.$RANDOM.html; done
-    $markdown_bin "$1" > "$out"
+    $converter_bin ${convert_args} "$1" > "$out"
     echo "$out"
 }
 
