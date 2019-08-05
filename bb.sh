@@ -86,6 +86,10 @@ global_variables() {
     global_main_menu=()
     declare -a global_main_menu
 
+    # set global_enable_duckduckgo to true in order to show a DuckDuckGo search-box
+    # so that visitors can search your website.
+    global_enable_duckduckgo=false
+
     # feed file (rss in this case)
     blog_feed="feed.rss"
     number_of_feed_articles="10"
@@ -224,6 +228,16 @@ google_analytics() {
         </script>"
     else
         cat "$global_analytics_file"
+    fi
+}
+
+# Prints the iframe used to show a duckduckgo search box
+duckduckgo_body() {
+    if $global_enable_duckduckgo; then
+        site=`echo "${global_url}" | awk -F/ '{print $3}'`
+        echo "<div class=\"search_box_container\"><iframe src=\"https://duckduckgo.com/search.html?site=${site}&prefill=Search ${site}&bgcolor=F3F3F3\" style=\"overflow:hidden;margin:0;padding:0;width:100%;height:40px;\" frameborder=\"0\"></iframe></div>"
+    else
+        echo ""
     fi
 }
 
@@ -953,6 +967,7 @@ create_includes() {
     {
         echo "<h1 class=\"nomargin\"><a class=\"ablack\" href=\"$global_url/$index_file\">$global_title</a></h1>" 
         echo "<div id=\"description\">$global_description</div>"
+        duckduckgo_body
     } > ".title.html"
 
     # generating the menu
@@ -1060,8 +1075,10 @@ create_css() {
         blockquote{background-color:#f9f9f9;border-left:solid 4px #e9e9e9;margin-left:12px;padding:12px 12px 12px 24px;}
         blockquote img{margin:12px 0px;}
         blockquote iframe{margin:12px 0px;}
+        .search_box_container{padding-right:18px;}
         @media screen and (min-width:505px){
             #divbody{padding:0px 48px 24px 48px;}
+            .search_box_container{padding-right:48px;}
         }' > main.css
     fi
 }
