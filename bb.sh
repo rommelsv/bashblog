@@ -114,7 +114,7 @@ global_variables() {
     # extra content to add just after we open the <body> tag
     # and before the actual blog content
     body_begin_file=""
-    # extra content to add just before we cloese <body tag (just before
+    # extra content to add just before we close <body tag (just before
     # </body>)
     body_end_file=""
     # CSS files to include on every page, f.ex. css_include=('main.css' 'blog.css')
