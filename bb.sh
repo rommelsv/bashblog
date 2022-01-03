@@ -57,9 +57,6 @@ global_variables() {
     # Default search page, where tweets more than a week old are hidden
     global_twitter_search="twitter"
 
-    # Change this to your disqus username to use disqus for comments
-    global_disqus_username=""
-
     # Set your github username here to display a github-corner linking to your github profile
     global_github_username=""
 
@@ -245,43 +242,6 @@ duckduckgo_body() {
     fi
 }
 
-# Prints the required code for disqus comments
-disqus_body() {
-    [[ -z $global_disqus_username ]] && return
-
-    echo '<div id="disqus_thread"></div>
-            <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-               var disqus_shortname = '"'$global_disqus_username'"'; // required: replace example with your forum shortname
-
-            /* * * DONT EDIT BELOW THIS LINE * * */
-            (function() {
-            var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-            dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-            })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>'
-}
-
-# Prints the required code for disqus in the footer
-disqus_footer() {
-    [[ -z $global_disqus_username ]] && return
-    echo '<script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = '"'$global_disqus_username'"'; // required: replace example with your forum shortname
-
-        /* * * DONT EDIT BELOW THIS LINE * * */
-        (function () {
-        var s = document.createElement("script"); s.async = true;
-        s.type = "text/javascript";
-        s.src = "//" + disqus_shortname + ".disqus.com/count.js";
-        (document.getElementsByTagName("HEAD")[0] || document.getElementsByTagName("BODY")[0]).appendChild(s);
-    }());
-    </script>'
-}
-
 # Reads HTML file from stdin, prints its content to stdout
 # $1    where to start ("text" or "entry")
 # $2    where to stop ("text" or "entry")
@@ -387,20 +347,16 @@ twitter_card() {
 twitter() {
     [[ -z $global_twitter_username ]] && return
 
-    if [[ -z $global_disqus_username ]]; then
-        if [[ $global_twitter_cookieless == true ]]; then
-            id=$RANDOM
+    if [[ $global_twitter_cookieless == true ]]; then
+        id=$RANDOM
 
-            search_engine="https://twitter.com/search?q="
+        search_engine="https://twitter.com/search?q="
 
-            echo "<p id='twitter'><a href='http://twitter.com/intent/tweet?url=$1&text=$template_twitter_comment&via=$global_twitter_username'>$template_comments $template_twitter_button</a> "
-            echo "<a href='$search_engine""$1'><span id='count-$id'></span></a>&nbsp;</p>"
-            return;
-        else
-            echo "<p id='twitter'>$template_comments&nbsp;";
-        fi
+        echo "<p id='twitter'><a href='http://twitter.com/intent/tweet?url=$1&text=$template_twitter_comment&via=$global_twitter_username'>$template_comments $template_twitter_button</a> "
+        echo "<a href='$search_engine""$1'><span id='count-$id'></span></a>&nbsp;</p>"
+        return;
     else
-        echo "<p id='twitter'><a href=\"$1#disqus_thread\">$template_comments</a> &nbsp;"
+        echo "<p id='twitter'>$template_comments&nbsp;";
     fi
 
     echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-text=\"$template_twitter_comment\" data-url=\"$1\""
@@ -512,14 +468,11 @@ create_html_page() {
 
         echo '</div>' # content
 
-        # Add disqus commments except for index and all_posts pages
-        [[ $index == no ]] && disqus_body
 
         # page footer
         cat .footer.html
         # close divs
         echo '</div></div>' # divbody and divbodyholder
-        disqus_footer
         [[ $global_github_username != "" ]] &&
         if [[ $github_link_target == "" ]]; then
             github_link_target="_self"
