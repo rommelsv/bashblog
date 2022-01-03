@@ -33,7 +33,7 @@ global_variables() {
     # You can use twitter or facebook or anything for global_author_url
     global_author_url="http://twitter.com/example"
     # Your email
-    global_email="john@smith.com"
+    global_email="john.doe@example.org"
 
     # CC by-nc-nd is a good starting point, you can change this to "&copy;" for Copyright
     global_license="CC by-nc-nd"
