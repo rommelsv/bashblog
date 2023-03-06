@@ -1,19 +1,15 @@
-bashblog
+bashblog-ng
 ========
+
+This is the Next Generation version of (https://github.com/cfenollosa/bashblog). Me, and [lots of other people](https://www.google.com/search?q=%22Generated+with+bashblog,+a+single+bash+script+to+easily+create+blogs+like+this+one%22), love bashblog as a simple tool to maintain a blog. The reason for bashblog-ng is simply that I wanted more features added but did not want to pollute the original bashblog with lots of pull requests.
 
 A single Bash script to create blogs. 
 
-I created it because I wanted a very, very simple way to post entries to a blog by using a public folder on my server, without any special requirements and dependencies. Works on GNU/Linux, OSX and BSD.
+Created because someone wanted a very, very simple way to post entries to a blog by using a public folder on a server, without any special requirements and dependencies. Works on GNU/Linux, OSX and BSD.
 
-*How simple? Just type `./bb.sh post` and start writing your blogpost.*
+You can see a sample here: (https://yagni.rocks). That page was 100% generated using bashblog-ng, no additional tweaking.
 
-[![asciinema](https://asciinema.org/a/4nr44km9ipow4s7u2w2eabeik.png)](https://asciinema.org/a/4nr44km9ipow4s7u2w2eabeik)
-
-You can see a sample here: [read the initial blog post](https://web.archive.org/web/20130520204024/http://mmb.pcb.ub.es/~carlesfe/blog/creating-a-simple-blog-system-with-a-500-line-bash-script.html). That page was 100% generated using bashblog, no additional tweaking.
-
-[![demo](https://raw.githubusercontent.com/cfenollosa/bashblog/gh-pages/images/demo_thumb.png)](https://raw.githubusercontent.com/cfenollosa/bashblog/gh-pages/images/demo.png)
-
-Check out [other bashblog users](https://www.google.com/search?q=%22Generated+with+bashblog,+a+single+bash+script+to+easily+create+blogs+like+this+one%22)
+Check out [other bashblog-ng users](https://www.google.com/search?q=%22Generated+with+bashblog-ng+-+%28B%29e+%28A%29wesome+%26+%28S%29imple+%28H%29omie%22)
 
 
 Usage
@@ -90,6 +86,8 @@ bashblog uses the `$EDITOR` environment value to open the text editor.
 Detailed features
 -----------------
 
+- HTML5 compatable
+- Support for github username with corner-link
 - A simple but nice and readable design, with nothing but the blog posts
 - **NEW on 2.0** Markdown support via a third-party library.  
   The easiest method is to download
@@ -133,6 +131,7 @@ As a guideline, pull requests should:
 - It must work on Linux, BSD and Mac. Beware of using GNU coreutils with non-POSIX flags (i.e. `date` or `grep`)
 - Follow the UNIX philosophy: do one thing and do it well, rely on third party software for external features, etc
 - **Always** keep backwards compatibility when using the default configuration
+
 
 
 Changelog
@@ -181,6 +180,8 @@ Changelog
 - 1.2      'list' command
 - 1.1      Draft and preview support
 - 1.0      Read http://is.gd/Bkdoru
+
+
 
 
 License
