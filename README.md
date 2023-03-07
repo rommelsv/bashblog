@@ -1,15 +1,24 @@
-bashblog-ng
+bashblog-simple
 ========
 
-This is the Next Generation version of (https://github.com/cfenollosa/bashblog). Me, and [lots of other people](https://www.google.com/search?q=%22Generated+with+bashblog,+a+single+bash+script+to+easily+create+blogs+like+this+one%22), love bashblog as a simple tool to maintain a blog. The reason for bashblog-ng is simply that I wanted more features added but did not want to pollute the original bashblog with lots of pull requests.
+Being simple is hard.
+[bashblog](https://github.com/cfenollosa/bashblog), is an amazing but tool from
+a single objective: being simple. Fortunately, license allows to share and use
+different contributions to materialize that *simple* concept.
+[bashblog-ng](https://www.github.com/dvwallin/bashblog-ng) already includes some
+of said contributions to original project.
+By March 2023, I'll fork both projects and include only those changes that
+reflect my idea of simplicity at least for this blog.
+Although github's repo is a for from original bashblog, I will add the '-simple'
+suffix to the project.
 
-A single Bash script to create blogs. 
+Created because someone wanted a very, very simple way to post entries to a blog
+by using a public folder on a server, without any special requirements and
+dependencies. Works on GNU/Linux, OSX and BSD.
 
-Created because someone wanted a very, very simple way to post entries to a blog by using a public folder on a server, without any special requirements and dependencies. Works on GNU/Linux, OSX and BSD.
+You can see a sample here: [blog.cuevano.org](https://blog.cuevano.org).
 
-You can see a sample here: (https://yagni.rocks). That page was 100% generated using bashblog-ng, no additional tweaking.
-
-Check out [other bashblog-ng users](https://www.google.com/search?q=%22Generated+with+bashblog-ng+-+%28B%29e+%28A%29wesome+%26+%28S%29imple+%28H%29omie%22)
+Check out [other bashblog-simple users](https://www.duckduckgo.com/search?q=%22Generated+with+bashblog-simple+-+%28B%29e+%28A%29wesome+%26+%28S%29imple+%28H%29omie%22)
 
 
 Usage
@@ -27,45 +36,49 @@ Read the Configuration section below for more information**
 To create your first post, just run:
 
     ./bb.sh post
-    
-It will try to use Markdown, if installed. To force HTML:
 
-    ./bb.sh post -html
-    
+It will try to use Markdown, and only Markdown. So no html switches here.
+
 The script will handle the rest.
 
-When you're done, access the public URL for that folder  (e.g. `http://server.com/~username/blog`) 
+When you're done, access the public URL for that folder (e.g. `http://server.com/~username/blog`)
 and you should see the index file and a new page for that post!
 
 
 How to...
 ---------
 
-Please [read the wiki](https://github.com/cfenollosa/bashblog/wiki) to learn how to use the advanced features of Bashblog, such as headers and footers, static pages, and more.
+Please [read the wiki](https://github.com/rommelsv/bashblog/wiki) to learn
+how to use the advanced features of Bashblog, such as headers and footers,
+ static pages, and more.
 
 
 Features
 --------
 
-- Ultra simple usage: Just type a post with your favorite editor and the script does the rest. No templating.
+- Ultra simple usage: Just type a post with your favorite editor and the script 
+  does the rest. No templating.
 - No installation required. Download `bb.sh` and start blogging.
-- Zero dependencies. It runs just on base utils (`date`, `basename`, `grep`, `sed`, `head`, etc)
-- GNU/Linux, BSD and OSX compatible out of the box, no need for GNU `coreutils` on a Mac.
-  It does some magic to autodetect which command switches it needs to run depending on your system.
-- All content is static. You only need shell access to a machine with a public web folder.
-  *Tip: advanced users could mount a remote public folder via `ftpfs` and run this script locally*
+- Simple dependencies. It runs just on Markdown.pl + (base + core)  utils
+  (`date`, `basename`, `grep`, `sed`, `head`, `find`, etc).
+- Linux, actually just Ubuntu 18.04. If you like to test it in your system: be
+  my guest.
+- All content is static.
 - Allows drafts, includes a simple but clean stylesheet, generates the RSS file automatically.
-- Support for tags/categories
-- Support for Markdown, Disqus comments, Twitter, Feedburner, Google Analytics.
-- The project is still maintained as of 2016. Bugs are fixed, and new features are considered (see "Contributing")
-- Everything stored in a single ~1k lines bash script, how cool is that?! ;) 
+- Support for tags/categories.
+- Support for Markdown, Twitter, Feedburner.
+- Support for a basic year/month filesystem kind of structure.
+- The project is still maintained as of 2023. 
+  As I've mentioned, my idea of 'simple'.
+- Everything stored in a single ~1k lines bash script, how cool is that?! ;)
 
 
 Configuration
 -------------
 
-Configuration is not required for a test drive, but if you plan on running your blog with bashblog, you will
-want to change the default titles, author names, etc, to match your own.
+Configuration is not required for a test drive, but if you plan on running your
+blog with bashblog-simple, you will want to change the default titles, 
+author names, etc, to match your own.
 
 There are two ways to configure the blog strings:
 
@@ -77,22 +90,23 @@ This means that you don't need to define all variables in the config file, only 
 from the defaults.
 
 The format of the `.config` file is just one `variablename="value"` per line, just like in the `global_variables()`
-function. **Please remember:** quote the values, do not declare a variable with the dollar sign, do not use 
+function. **Please remember:** quote the values, do not declare a variable with the dollar sign, do not use
 spaces around the equal sign.
 
-bashblog uses the `$EDITOR` environment value to open the text editor.
+bashblog-simple uses the `$EDITOR` environment value to open the text editor.
+So configure it in your initial shell script (i.e., ${HOME}/.bashrc,
+${HOME}/.zshrc)
 
 
 Detailed features
 -----------------
 
-- HTML5 compatable
-- Support for github username with corner-link
+- HTML5 compatible
 - A simple but nice and readable design, with nothing but the blog posts
-- **NEW on 2.0** Markdown support via a third-party library.  
+- Markdown support via a third-party library.
   The easiest method is to download
-  Gruber's [Markdown.pl](http://daringfireball.net/projects/markdown/)
-- Post preview
+  Gruber's [Markdown.pl](http://daringfireball.net/projects/markdown/).
+- Post preview.
 - Save posts as drafts and resume editing later
 - HTML page for each post, using its title as the URL
 - Configurable number of posts on the front page
@@ -100,42 +114,51 @@ Detailed features
 - Additional page containing an index of all posts
 - Automatically generates pages for each tag
 - Rebuild all files while keeping the original data
-- Comments delegated to Twitter, with additional Disqus support
-- An option for cookieless Twitter sharing, to comply with the 
-[EU cookie law](https://github.com/cfenollosa/eu-cookie-law)
-- Google Analytics code support
+- Comments delegated to Twitter
+- An option for cookieless Twitter sharing, to comply with the
+  [EU cookie law](https://github.com/cfenollosa/eu-cookie-law)
 - Contains its own CSS so that everything is reasonably styled by default
 - Headers, footers, and in general everything that a well-structured html file needs
 - Support to add extra content on top of every page (e.g. banners, images, etc)
 - xhtml validation, CSS validation, RSS validation by the w3c
 - Automatic backup of the site every time you post (stored as `.backup.tar.gz`)
 
-Read the Changelog section for more updates or [check out the news on my blog](http://cfenollosa.com/blog/tag_bashblog.html)
+Read the Changelog section for more updates or
+[check out the news on my blog](http://blog.cuevano.org/tag_blog-announcements.html)
 
 
 Contributing
 ------------
 
-Bashblog started at 500 SLOC and it now has hit the 1000 SLOC barrier. 
-If we want to keep the code minimal and understandable, we need to make the difficult effort to restrain ourselves 
-from adding too many features.
+Bashblog started at 500 SLOC and it now has hit the 1000 SLOC barrier.
+If we want to keep the code minimal and understandable,
+we need to make the difficult effort to restrain ourselves from adding too many features.
 
-All bugfixes are welcome, but brand new features need to be strongly justified to get into the main tree. 
-Every new request will be honestly and civilly discussed on the comments. 
+All bugfixes are welcome, but brand new features need to be strongly justified
+ to get into the main tree.
+Every new request will be honestly and civilly discussed on the comments.
 As a guideline, pull requests should:
 
-- Fix a use case for some people (e.g. internationalization)
-- Add a use case which is arguably very common (e.g. disqus integration for comments)
+- Fix a use case for some people (e.g., internationalization)
+- Add a use case which is arguably very common
 - Be very small when possible (a couple lines of code)
-- Don't require a significant rewrite of the code (Don't break `create_html_file()` or `write_entry()`, etc)
-- It must work on Linux, BSD and Mac. Beware of using GNU coreutils with non-POSIX flags (i.e. `date` or `grep`)
+- Don't require a significant rewrite of the code (don't break `create_html_file()` or `write_entry()`, etc)
+- It must work on Linux.
 - Follow the UNIX philosophy: do one thing and do it well, rely on third party software for external features, etc
 - **Always** keep backwards compatibility when using the default configuration
 
+bashblog-simple:
+
+I've started this repo from bashblog-ng.
+I've noticed some of original pull requests to bashblog were included into
+bashblog-ng. I am keeping history from there. So if your contribution it is not
+included as it should be, open an issue, and we can work it out so it should be
+recognized.
 
 
 Changelog
 ---------
+- 2.11     No google references. year/month filesystem structure.
 - 2.10     Added `global_twitter_card_image`
 - 2.9      Added `body_begin_file_index`
 - 2.8      Bugfixes<br/>
